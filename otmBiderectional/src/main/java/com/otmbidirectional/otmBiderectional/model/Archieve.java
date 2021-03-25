@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Library {
+public class Archieve {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,7 @@ public class Library {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "archieve", cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();
 
     public int getId() {
@@ -42,7 +42,7 @@ public class Library {
         this.books = books;
 
         for(Book b : books) {
-            b.setLibrary(this);
+            b.setArchieve(this);
         }
     }
 

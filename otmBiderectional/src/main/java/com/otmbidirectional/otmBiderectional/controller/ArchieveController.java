@@ -1,6 +1,8 @@
 package com.otmbidirectional.otmBiderectional.controller;
 
+import com.otmbidirectional.otmBiderectional.model.Archieve;
 import com.otmbidirectional.otmBiderectional.model.Library;
+import com.otmbidirectional.otmBiderectional.repository.ArchieveRepository;
 import com.otmbidirectional.otmBiderectional.repository.BookRepository;
 import com.otmbidirectional.otmBiderectional.repository.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +17,27 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/libraries")
-public class LibraryController {
+@RequestMapping("/api/v1/archieve")
+public class ArchieveController {
 
-    private final LibraryRepository libraryRepository;
+    private final ArchieveRepository archieveRepository;
     private final BookRepository bookRepository;
 
     @Autowired
-    public LibraryController(LibraryRepository libraryRepository, BookRepository bookRepository) {
-        this.libraryRepository = libraryRepository;
+    public ArchieveController(ArchieveRepository archieveRepository, BookRepository bookRepository) {
+        this.archieveRepository = archieveRepository;
         this.bookRepository = bookRepository;
     }
 
     @PostMapping
-    public ResponseEntity<Library> create(@Valid @RequestBody Library library) {
-        Library savedLibrary = libraryRepository.save(library);
+    public ResponseEntity<Archieve> create(@Valid @RequestBody Archieve archieve) {
+        Archieve savedArchieve = archieveRepository.save(archieve);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedLibrary.getId()).toUri();
+                .buildAndExpand(savedArchieve.getId()).toUri();
 
-        return ResponseEntity.created(location).body(savedLibrary);
+        return ResponseEntity.created(location).body(savedArchieve);
     }
-
+/*
     @PutMapping("/{id}")
     public ResponseEntity<Library> update(@PathVariable Integer id, @Valid @RequestBody Library library) {
         Optional<Library> optionalLibrary = libraryRepository.findById(id);
@@ -75,5 +77,7 @@ public class LibraryController {
     public ResponseEntity<Page<Library>> getAll(Pageable pageable) {
         return ResponseEntity.ok(libraryRepository.findAll(pageable));
     }
+
+ */
 
 }

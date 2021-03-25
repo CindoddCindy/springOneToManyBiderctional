@@ -1,6 +1,5 @@
 package com.otmbidirectional.otmBiderectional.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -8,17 +7,26 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
+    @Column(name = "name")
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "library_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Library library;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "archieve_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Archieve archieve;
+
 
     public int getId() {
         return id;
@@ -44,5 +52,11 @@ public class Book {
         this.library = library;
     }
 
+    public Archieve getArchieve() {
+        return archieve;
+    }
 
+    public void setArchieve(Archieve archieve) {
+        this.archieve = archieve;
+    }
 }
